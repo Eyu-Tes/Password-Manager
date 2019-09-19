@@ -1,5 +1,4 @@
 import sys
-import time
 from PyQt5.QtWidgets import QMainWindow, QApplication
 import welcome_win
 import main_win
