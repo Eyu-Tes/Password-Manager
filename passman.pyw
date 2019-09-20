@@ -3,6 +3,7 @@ import sys
 from PyQt5.QtWidgets import QMainWindow, QApplication, QListWidgetItem
 import welcome_win
 import main_win
+import passman_model
 from add_frame import AddFrame
 from rename_frame import RenameFrame
 from remove_frame import RemoveFrame
@@ -27,7 +28,7 @@ class WelcomeWindow(QMainWindow):
         self.show()
 
     def first_time(self):
-        self.retrieve_master_password()
+        self.password = passman_model.get_master_password()
         new_user = False if self.password else True
         return new_user
 
@@ -40,21 +41,13 @@ class WelcomeWindow(QMainWindow):
                 self.ui.labelPError.setText('Minimum length is 4 characters')
             else:
                 self.password = password
-                self.insert_master_password()
+                passman_model.insert_master_password(self.password)
                 self.go_to_main_window()
         else:
             if password != self.password:
                 self.ui.labelPError.setText('Wrong password!')
             else:
                 self.go_to_main_window()
-
-    def insert_master_password(self):
-        with open('master_password.txt', 'w') as f:
-            f.write(self.password)
-
-    def retrieve_master_password(self):
-        with open('master_password.txt') as f:
-            self.password = f.read()
 
     def go_to_main_window(self):
         self.main_window = MainWindow()
@@ -85,9 +78,9 @@ class MainWindow(QMainWindow):
         self.ui.listWidgetAccounts.itemClicked.connect(self.item_clicked)
 
     def populate_list(self):
-        items = MainWindow.read_from_db()
+        items = passman_model.get_accounts()
         for item in items:
-            self.ui.listWidgetAccounts.addItem(item.strip())
+            self.ui.listWidgetAccounts.addItem(item[0])
 
     def get_items(self):
         # Uses generator to return the item texts in the list widgets
@@ -123,9 +116,9 @@ class MainWindow(QMainWindow):
             else:
                 self.add.ui.labelAddError.setText('')
                 self.ui.listWidgetAccounts.addItem(name)
-                MainWindow.add_to_db(name)
+                passman_model.add_account(name)
                 self.add.hide_add_frame()
-                self.ui.labelStatus.setText(f'{name} added to food store!')
+                self.ui.labelStatus.setText(f'{name} added to account store!')
         self.add.ui.lineEditAdd.clear()
         self.add.ui.lineEditAdd.setFocus()
 
@@ -167,7 +160,7 @@ class MainWindow(QMainWindow):
                 self.ui.listWidgetAccounts.insertItem(cur_row, QListWidgetItem(new_name))
                 # Make sure next item isn't selected by default, after rename.
                 self.ui.listWidgetAccounts.setCurrentRow(-1)
-                MainWindow.rename_in_db(item_name, new_name)
+                passman_model.rename_account(item_name, new_name)
                 self.rename.hide_rename_frame()
                 self.ui.labelStatus.setText(f'{item_name} renamed to {new_name}!')
         self.rename.ui.lineEditRename.clear()
@@ -200,9 +193,9 @@ class MainWindow(QMainWindow):
         self.ui.listWidgetAccounts.takeItem(self.ui.listWidgetAccounts.row(self.current_item))
         # Make sure the next item is not selected by default, after deletion.
         self.ui.listWidgetAccounts.setCurrentRow(-1)
-        MainWindow.remove_from_db(item_name)
+        passman_model.remove_account(item_name)
         self.remove.hide_remove_frame()
-        self.ui.labelStatus.setText(f'{item_name} removed food store!')
+        self.ui.labelStatus.setText(f'{item_name} removed from account store!')
 
     def remove_item_cancel(self):
         self.remove.hide_remove_frame()
@@ -224,51 +217,13 @@ class MainWindow(QMainWindow):
 
     def remove_all_items_commit(self):
         self.ui.listWidgetAccounts.clear()
-        MainWindow.remove_all_from_db()
+        passman_model.remove_all_accounts()
         self.remove_all.hide_remove_all_frame()
         self.ui.labelStatus.setText('Account store is empty!')
 
     def remove_all_items_cancel(self):
         self.remove_all.hide_remove_all_frame()
 # -----------------------------------------------------------------------------
-
-    @staticmethod
-    def read_from_db():
-        with open('acc_passwords.txt', 'r') as f:
-            content = f.readlines()
-        return content
-
-    @staticmethod
-    def add_to_db(content):
-        with open('acc_passwords.txt', 'a') as f:
-            f.write(f'{content}\n')
-
-    @staticmethod
-    def rename_in_db(old_content, new_content):
-        with open('acc_passwords.txt') as of, open('new.txt', 'w') as nf:
-            for old_line in of.readlines():
-                if not (old_line.strip().lower() == old_content.lower()):
-                    nf.write(old_line)
-                else:
-                    nf.write(f'{new_content}\n')
-        os.remove('acc_passwords.txt')
-        os.rename('new.txt', 'acc_passwords.txt')
-
-    @staticmethod
-    def remove_from_db(content):
-        with open('acc_passwords.txt') as of, open('new.txt', 'w') as nf:
-            for old_line in of.readlines():
-                if not (old_line.strip().lower() == content.lower()):
-                    nf.write(old_line)
-        os.remove('acc_passwords.txt')
-        os.rename('new.txt', 'acc_passwords.txt')
-
-    @staticmethod
-    def remove_all_from_db():
-        # with open('food_items.txt', 'w') as f:
-        #         f.write()
-        # erase all the contents of the text file
-        open('acc_passwords.txt', 'w').close()
 
 
 if __name__ == '__main__':
