@@ -62,16 +62,16 @@ class Ui_MainWindow(object):
 "background-color: #cfcfcf;\n"
 "padding: 3px;")
         self.labelNoItem.setObjectName("labelNoItem")
-        self.pushButton = QtWidgets.QPushButton(self.centralwidget)
-        self.pushButton.setGeometry(QtCore.QRect(280, 270, 121, 51))
+        self.pushButtonCopy = QtWidgets.QPushButton(self.centralwidget)
+        self.pushButtonCopy.setGeometry(QtCore.QRect(280, 270, 121, 51))
         font = QtGui.QFont()
         font.setPointSize(12)
         font.setBold(True)
         font.setWeight(75)
-        self.pushButton.setFont(font)
-        self.pushButton.setStyleSheet("background: #b59980;\n"
+        self.pushButtonCopy.setFont(font)
+        self.pushButtonCopy.setStyleSheet("background: #b59980;\n"
 "color: #fff;")
-        self.pushButton.setObjectName("pushButton")
+        self.pushButtonCopy.setObjectName("pushButtonCopy")
         self.pushButtonAdd = QtWidgets.QPushButton(self.centralwidget)
         self.pushButtonAdd.setGeometry(QtCore.QRect(430, 270, 121, 51))
         font = QtGui.QFont()
@@ -147,7 +147,7 @@ class Ui_MainWindow(object):
         MainWindow.setWindowTitle(_translate("MainWindow", "PassMan"))
         self.labelTitle.setText(_translate("MainWindow", "         PassMan"))
         self.labelNoItem.setText(_translate("MainWindow", "No items selected!"))
-        self.pushButton.setText(_translate("MainWindow", "Copy \n"
+        self.pushButtonCopy.setText(_translate("MainWindow", "Copy \n"
 "Password"))
         self.pushButtonAdd.setText(_translate("MainWindow", "Add \n"
 "Account"))
