@@ -42,6 +42,13 @@ def get_account_password(account):
     return passwords[0] if passwords else ''
 
 
+def change_account_password(account, new_password):
+    query = f"""UPDATE account_manager
+                SET password = '{new_password}' WHERE account = '{account}'"""
+    cur.execute(query)
+    db.commit()
+
+
 def add_account(account, password='happypg'):
     query = f"""INSERT INTO account_manager (account, password) 
                 VALUES ('{account}', '{password}')"""

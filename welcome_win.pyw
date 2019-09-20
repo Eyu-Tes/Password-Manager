@@ -14,6 +14,8 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(470, 459)
+        MainWindow.setMinimumSize(QtCore.QSize(470, 459))
+        MainWindow.setMaximumSize(QtCore.QSize(470, 459))
         MainWindow.setStyleSheet("background: #008cba;")
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")

@@ -5,6 +5,7 @@ import welcome_win
 import main_win
 import passman_model
 from add_frame import AddFrame
+from change_frame import ChangeFrame
 from rename_frame import RenameFrame
 from remove_frame import RemoveFrame
 from remove_all_frame import RemoveAllFrame
@@ -62,6 +63,7 @@ class MainWindow(QMainWindow):
         self.ui.setupUi(self)
 
         self.add = AddFrame(self.ui)
+        self.change = ChangeFrame(self.ui)
         self.rename = RenameFrame(self.ui)
         self.remove = RemoveFrame(self.ui)
         self.remove_all = RemoveAllFrame(self.ui)
@@ -72,6 +74,7 @@ class MainWindow(QMainWindow):
 
         self.ui.pushButtonCopy.clicked.connect(self.copy_password)
         self.ui.pushButtonAdd.clicked.connect(self.show_add_frame)
+        self.ui.pushButtonChange.clicked.connect(self.show_change_frame)
         self.ui.pushButtonRename.clicked.connect(self.show_rename_frame)
         self.ui.pushButtonRemove.clicked.connect(self.show_remove_frame)
         self.ui.pushButtonRemoveAll.clicked.connect(self.show_remove_all_frame)
@@ -139,6 +142,39 @@ class MainWindow(QMainWindow):
 
     def add_item_cancel(self):
         self.add.hide_add_frame()
+# -----------------------------------------------------------------------------
+
+# -------------------------- Change Frame -------------------------------------
+    def show_change_frame(self):
+        item = self.get_selected_item()
+        if item:
+            self.current_item = item
+            if not self.change.displayed:
+                self.ui.labelStatus.setText('')
+                self.ui.labelNoItem.hide()
+                self.change.ui.labelChange.setText(
+                    f'Change {self.current_item.text()} password to - ')
+                self.change.display_change_frame()
+                self.change.ui.pushButtonChangeOk.clicked.connect(self.change_item_commit)
+                self.change.ui.pushButtonChangeCancel.clicked.connect(self.change_item_cancel)
+        else:
+            self.ui.labelNoItem.show()
+
+    def change_item_commit(self):
+        cur_row = self.ui.listWidgetAccounts.row(self.current_item)
+        item_name = self.current_item.text()
+        new_password = self.change.ui.lineEditChange.text()
+        if new_password:
+            # Make sure next item isn't selected by default, after change.
+            self.ui.listWidgetAccounts.setCurrentRow(-1)
+            passman_model.change_account_password(item_name, new_password)
+            self.change.hide_change_frame()
+            self.ui.labelStatus.setText(f'{item_name} password changed!')
+            self.change.ui.lineEditChange.clear()
+            self.change.ui.lineEditChange.setFocus()
+
+    def change_item_cancel(self):
+        self.change.hide_change_frame()
 # -----------------------------------------------------------------------------
 
 # -------------------------- Rename Frame -------------------------------------
