@@ -1,5 +1,5 @@
-import os
 import sys
+import pyperclip
 from PyQt5.QtWidgets import QMainWindow, QApplication, QListWidgetItem
 import welcome_win
 import main_win
@@ -70,6 +70,7 @@ class MainWindow(QMainWindow):
         self.ui.labelNoItem.hide()
         self.populate_list()
 
+        self.ui.pushButtonCopy.clicked.connect(self.copy_password)
         self.ui.pushButtonAdd.clicked.connect(self.show_add_frame)
         self.ui.pushButtonRename.clicked.connect(self.show_rename_frame)
         self.ui.pushButtonRemove.clicked.connect(self.show_remove_frame)
@@ -97,6 +98,20 @@ class MainWindow(QMainWindow):
     def item_clicked(self):
         if self.ui.labelNoItem.isVisible():
             self.ui.labelNoItem.hide()
+
+# ----------------------------- Copy Password ---------------------------------
+    def copy_password(self):
+        item = self.get_selected_item()
+        if item:
+            self.current_item = item
+            name = self.current_item.text()
+            self.ui.listWidgetAccounts.setCurrentRow(-1)
+            pwd = passman_model.get_account_password(name)
+            pyperclip.copy(pwd)
+            self.ui.labelStatus.setText(f'{name} password copied to clip board!')
+        else:
+            self.ui.labelNoItem.show()
+# -----------------------------------------------------------------------------
 
 # ----------------------------- Add Frame -------------------------------------
     def show_add_frame(self):
@@ -141,8 +156,6 @@ class MainWindow(QMainWindow):
                     self.rename_item_commit)
                 self.rename.ui.pushButtonRenameCancel.clicked.connect(
                     self.rename_item_cancel)
-            else:
-                print('Already Rename')
         else:
             self.ui.labelNoItem.show()
 

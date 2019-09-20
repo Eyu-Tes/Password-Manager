@@ -53,7 +53,7 @@ class Ui_MainWindow(object):
         self.listWidgetAccounts.setFrameShadow(QtWidgets.QFrame.Sunken)
         self.listWidgetAccounts.setObjectName("listWidgetAccounts")
         self.labelNoItem = QtWidgets.QLabel(self.centralwidget)
-        self.labelNoItem.setGeometry(QtCore.QRect(310, 170, 211, 31))
+        self.labelNoItem.setGeometry(QtCore.QRect(290, 170, 241, 31))
         font = QtGui.QFont()
         font.setFamily("Lucida Sans")
         font.setPointSize(16)
@@ -69,7 +69,7 @@ class Ui_MainWindow(object):
         font.setBold(True)
         font.setWeight(75)
         self.pushButtonCopy.setFont(font)
-        self.pushButtonCopy.setStyleSheet("background: #b59980;\n"
+        self.pushButtonCopy.setStyleSheet("background:  #0079bf;\n"
 "color: #fff;")
         self.pushButtonCopy.setObjectName("pushButtonCopy")
         self.pushButtonAdd = QtWidgets.QPushButton(self.centralwidget)
@@ -79,7 +79,7 @@ class Ui_MainWindow(object):
         font.setBold(True)
         font.setWeight(75)
         self.pushButtonAdd.setFont(font)
-        self.pushButtonAdd.setStyleSheet("background: #b59980;\n"
+        self.pushButtonAdd.setStyleSheet("background:  #0079bf;\n"
 "color: #fff;")
         self.pushButtonAdd.setObjectName("pushButtonAdd")
         self.pushButtonRename = QtWidgets.QPushButton(self.centralwidget)
@@ -89,7 +89,7 @@ class Ui_MainWindow(object):
         font.setBold(True)
         font.setWeight(75)
         self.pushButtonRename.setFont(font)
-        self.pushButtonRename.setStyleSheet("background:#b59980;\n"
+        self.pushButtonRename.setStyleSheet("background: #0079bf;\n"
 "color: #fff;")
         self.pushButtonRename.setObjectName("pushButtonRename")
         self.pushButtonRemove = QtWidgets.QPushButton(self.centralwidget)
@@ -99,7 +99,7 @@ class Ui_MainWindow(object):
         font.setBold(True)
         font.setWeight(75)
         self.pushButtonRemove.setFont(font)
-        self.pushButtonRemove.setStyleSheet("background: #b59980;\n"
+        self.pushButtonRemove.setStyleSheet("background: #0079bf;\n"
 "color: #fff;")
         self.pushButtonRemove.setObjectName("pushButtonRemove")
         self.pushButtonRemoveAll = QtWidgets.QPushButton(self.centralwidget)
@@ -109,7 +109,7 @@ class Ui_MainWindow(object):
         font.setBold(True)
         font.setWeight(75)
         self.pushButtonRemoveAll.setFont(font)
-        self.pushButtonRemoveAll.setStyleSheet("background: #b59980;\n"
+        self.pushButtonRemoveAll.setStyleSheet("background: #0079bf;\n"
 "color: #fff;")
         self.pushButtonRemoveAll.setObjectName("pushButtonRemoveAll")
         self.pushButtonChange = QtWidgets.QPushButton(self.centralwidget)
@@ -120,7 +120,7 @@ class Ui_MainWindow(object):
         font.setItalic(False)
         font.setWeight(75)
         self.pushButtonChange.setFont(font)
-        self.pushButtonChange.setStyleSheet("background: #b59980;\n"
+        self.pushButtonChange.setStyleSheet("background:  #0079bf;\n"
 "color: #fff;")
         self.pushButtonChange.setObjectName("pushButtonChange")
         self.labelStatus = QtWidgets.QLabel(self.centralwidget)
@@ -146,7 +146,7 @@ class Ui_MainWindow(object):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "PassMan"))
         self.labelTitle.setText(_translate("MainWindow", "         PassMan"))
-        self.labelNoItem.setText(_translate("MainWindow", "No items selected!"))
+        self.labelNoItem.setText(_translate("MainWindow", "No accounts selected!"))
         self.pushButtonCopy.setText(_translate("MainWindow", "Copy \n"
 "Password"))
         self.pushButtonAdd.setText(_translate("MainWindow", "Add \n"

@@ -34,6 +34,14 @@ def get_accounts():
     return accounts
 
 
+def get_account_password(account):
+    query = f"""SELECT password FROM account_manager
+                WHERE account = '{account}'"""
+    cur.execute(query)
+    passwords = cur.fetchone()
+    return passwords[0] if passwords else ''
+
+
 def add_account(account, password='happypg'):
     query = f"""INSERT INTO account_manager (account, password) 
                 VALUES ('{account}', '{password}')"""
