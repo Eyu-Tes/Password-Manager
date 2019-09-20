@@ -49,7 +49,7 @@ def change_account_password(account, new_password):
     db.commit()
 
 
-def add_account(account, password='happypg'):
+def add_account(account, password):
     query = f"""INSERT INTO account_manager (account, password) 
                 VALUES ('{account}', '{password}')"""
     cur.execute(query)

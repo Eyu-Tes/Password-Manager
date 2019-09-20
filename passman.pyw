@@ -126,19 +126,26 @@ class MainWindow(QMainWindow):
             self.add.ui.pushButtonAddCancel.clicked.connect(self.add_item_cancel)
 
     def add_item_commit(self):
-        name = self.add.ui.lineEditAdd.text()
-        if name:
+        name = self.add.ui.lineEditAddAccount.text()
+        pwd = self.add.ui.lineEditAddPassword.text()
+        if name and pwd:
             # if account is already found in list, don't add it
             if name.lower() in self.get_items():
                 self.add.ui.labelAddError.setText('Account Already exists!')
             else:
                 self.add.ui.labelAddError.setText('')
                 self.ui.listWidgetAccounts.addItem(name)
-                passman_model.add_account(name)
+                passman_model.add_account(name, pwd)
                 self.add.hide_add_frame()
                 self.ui.labelStatus.setText(f'{name} added to account store!')
-        self.add.ui.lineEditAdd.clear()
-        self.add.ui.lineEditAdd.setFocus()
+
+            self.add.ui.lineEditAddAccount.clear()
+            self.add.ui.lineEditAddPassword.clear()
+            self.add.ui.lineEditAddAccount.setFocus()
+        elif not name:
+            self.add.ui.lineEditAddAccount.setFocus()
+        elif not pwd:
+            self.add.ui.lineEditAddPassword.setFocus()
 
     def add_item_cancel(self):
         self.add.hide_add_frame()
