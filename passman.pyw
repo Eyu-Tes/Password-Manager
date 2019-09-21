@@ -4,11 +4,11 @@ from PyQt5.QtWidgets import QMainWindow, QApplication, QListWidgetItem
 import welcome_win
 import main_win
 import passman_model
-from add_frame import AddFrame
-from change_frame import ChangeFrame
-from rename_frame import RenameFrame
-from remove_frame import RemoveFrame
-from remove_all_frame import RemoveAllFrame
+from frames.add_frame import AddFrame
+from frames.change_frame import ChangeFrame
+from frames.rename_frame import RenameFrame
+from frames.remove_frame import RemoveFrame
+from frames.remove_all_frame import RemoveAllFrame
 
 
 class WelcomeWindow(QMainWindow):
