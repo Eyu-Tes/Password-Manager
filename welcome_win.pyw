@@ -2,13 +2,11 @@
 
 # Form implementation generated from reading ui file 'welcome_win.ui'
 #
-# Created by: PyQt5 UI code generator 5.13.0
+# Created by: PyQt5 UI code generator 5.11.3
 #
 # WARNING! All changes made in this file will be lost!
 
-
 from PyQt5 import QtCore, QtGui, QtWidgets
-
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -16,6 +14,9 @@ class Ui_MainWindow(object):
         MainWindow.resize(470, 459)
         MainWindow.setMinimumSize(QtCore.QSize(470, 459))
         MainWindow.setMaximumSize(QtCore.QSize(470, 459))
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap("img/icon.ico"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        MainWindow.setWindowIcon(icon)
         MainWindow.setStyleSheet("background: #008cba;")
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
@@ -104,3 +105,4 @@ if __name__ == "__main__":
     ui.setupUi(MainWindow)
     MainWindow.show()
     sys.exit(app.exec_())
+
